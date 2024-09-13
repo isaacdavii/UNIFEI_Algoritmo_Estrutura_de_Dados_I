@@ -1,0 +1,69 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include "matriz.h"
+
+int **alocaMatriz(int linhas, int colunas) {
+    int **mat = (int **) malloc(linhas * sizeof(int *));
+    if (!mat)
+        return NULL;
+    for (int i = 0; i < linhas; i++) {
+        mat[i] = (int *) malloc(colunas * sizeof(int));
+        if (!mat[i]) {
+            for (int j = 0; j < i; j++)
+                free(mat[j]);
+            free(mat);
+            return NULL;
+        }
+    }
+
+    return mat;
+}
+
+void preencheMatriz(int **mat, int linhas, int colunas, int opcao) {
+    for (int i = 0; i < linhas; i++) {
+        for (int j = 0; j < colunas; j++) {
+            switch (opcao) {
+                case 1:
+                    mat[i][j] = (3 * i) + (4 * j);
+                    break;
+                case 2:
+                    mat[i][j] = (-4 * i) + (-3 * j);
+                    break;
+                case 3:
+                    mat[i][j] = 0;
+                    break;
+            }
+        }
+    }
+}
+
+int **somaMatriz(int **matA, int **matB, int lin, int col) {
+    int **matSoma = alocaMatriz(lin, col);
+    if (!matSoma)
+        return NULL;
+
+    for (int i = 0; i < lin; i++) {
+        for (int j = 0; j < col; j++) {
+            matSoma[i][j] = matA[i][j] + matB[i][j];
+        }
+    }
+    return matSoma;
+}
+
+void imprimeMatriz(int **mat, int linhas, int colunas) {
+    for (int i = 0; i < linhas; i++) {
+        for (int j = 0; j < colunas; j++) {
+            printf("%d", mat[i][j]);
+            if (j < colunas - 1)
+                printf("\t");
+        }
+        printf("\n");
+    }
+}
+
+void desalocaMatriz(int **M) {
+    free(M[0]);
+    free(M);
+}
+
+

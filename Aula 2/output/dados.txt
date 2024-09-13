@@ -1,0 +1,6 @@
+Sexo	Altura	Idade	Cor dos Olhos
+M	1.75	25	a
+F	1.60	30	v
+M	1.80	35	c
+F	1.70	28	a
+M	1.85	32	v
